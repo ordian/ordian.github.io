@@ -181,6 +181,69 @@ method.cv.lvo &lt;-<span class="st"> </span>function(method, formula, ...) {
 <pre><code>## 
 ## Error estimation of 'method' using leave-one-out: 0.07142857</code></pre>
 <p>В общем, победил lda с model3.</p>
+<p>Пробуем отобрать признаки.</p>
+<pre class="sourceCode r"><code class="sourceCode r">model5 &lt;-<span class="st"> </span><span class="kw">as.formula</span>(<span class="kw">stepAIC</span>(<span class="kw">multinom</span>(model1, <span class="dt">data =</span> Seeds, <span class="dt">trace =</span> <span class="ot">FALSE</span>, <span class="dt">maxit =</span> <span class="dv">5000</span>)))</code></pre>
+<pre><code>## Start:  AIC=48.37
+## as.factor(Cultivar) ~ Area + Perimeter + Compactness + KernelLength + 
+##     KernelWidth + Asymmetry + GrooveLength
+## 
+##                Df    AIC
+## - Compactness   2 43.803
+## - KernelWidth   2 44.618
+## - Perimeter     2 46.025
+## - Area          2 47.241
+## &lt;none&gt;            48.373
+## - Asymmetry     2 58.851
+## - KernelLength  2 72.274
+## - GrooveLength  2 97.062
+## 
+## Step:  AIC=43.8
+## as.factor(Cultivar) ~ Area + Perimeter + KernelLength + KernelWidth + 
+##     Asymmetry + GrooveLength
+## 
+##                Df    AIC
+## - Perimeter     2 43.200
+## - KernelWidth   2 43.689
+## &lt;none&gt;            43.803
+## - Area          2 45.685
+## - Asymmetry     2 56.106
+## - KernelLength  2 67.631
+## - GrooveLength  2 93.533
+## 
+## Step:  AIC=43.2
+## as.factor(Cultivar) ~ Area + KernelLength + KernelWidth + Asymmetry + 
+##     GrooveLength
+## 
+##                Df    AIC
+## - KernelWidth   2 40.703
+## - Area          2 42.251
+## &lt;none&gt;            43.200
+## - Asymmetry     2 53.020
+## - KernelLength  2 64.133
+## - GrooveLength  2 92.781
+## 
+## Step:  AIC=40.7
+## as.factor(Cultivar) ~ Area + KernelLength + Asymmetry + GrooveLength
+## 
+##                Df    AIC
+## &lt;none&gt;            40.703
+## - Asymmetry     2 52.868
+## - Area          2 66.380
+## - KernelLength  2 70.802
+## - GrooveLength  2 95.127</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test.lda</span>(model5)</code></pre>
+<pre><code>## [1] 0.01388889</code></pre>
+<pre><code>## 
+## Error estimation of 'method' using leave-one-out: 0.03809524</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test.nb</span>(model5)</code></pre>
+<pre><code>## [1] 0.06944444</code></pre>
+<pre><code>## 
+## Error estimation of 'method' using leave-one-out: 0.07619048</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">test.mr</span>(model5)</code></pre>
+<pre><code>## [1] 0.06944444</code></pre>
+<pre><code>## 
+## Error estimation of 'method' using leave-one-out: 0.02857143</code></pre>
+<p>Лучше не стало.</p>
 </div>
 </div>
 
